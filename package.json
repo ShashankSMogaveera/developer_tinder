@@ -1,0 +1,19 @@
+{
+  "name": "developer_tinder",
+  "version": "1.0.0",
+  "description": "tinder like website which allows developers to connect and colloborate with each other",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "node.js",
+    "express.js",
+    "backend",
+    "frontend",
+    "fullstack"
+  ],
+  "author": "Shashank Shekar Mogaveera",
+  "license": "ISC"
+}
