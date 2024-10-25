@@ -1,5 +1,5 @@
 const express= require('express');
-
+const {adminAuth,userAuth}=require('./middlewares/auth')
 const app= express();
 
 app.get('/user',(_req,res, next)=>{
@@ -8,18 +8,20 @@ app.get('/user',(_req,res, next)=>{
 },(_req,res,next)=>{
     console.log('middleware 2')
     next()
-},(req,res)=>{
-    res.send('route handler last')
+},userAuth
+,(req,res)=>{
+    res.send('login successful')
 })
 
-app.get('/user',[(_req,res, next)=>{
+app.get('/admin',[(_req,res, next)=>{
     console.log("middleware 1")
     next();
 }],(_req,res,next)=>{
     console.log('middleware 2')
     next()
-},(req,res)=>{
-    res.send('route handler last')
+},adminAuth
+,(req,res)=>{
+    res.send('login successfull')
 })
 
 app.post('/user',(_req,res)=>{
