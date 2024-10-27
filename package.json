@@ -15,5 +15,8 @@
     "fullstack"
   ],
   "author": "Shashank Shekar Mogaveera",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^8.7.3"
+  }
 }

@@ -1,36 +1,24 @@
 const express= require('express');
-const {adminAuth,userAuth}=require('./middlewares/auth')
+const {connectDb}= require('./config/database')
+// const {adminAuth,userAuth}=require('./middlewares/auth')
+const {User}= require('./models/user')
 const app= express();
 
-app.get('/user',(_req,res, next)=>{
-    console.log("middleware 1")
-    next();
-},(_req,res,next)=>{
-    console.log('middleware 2')
-    next()
-},userAuth
-,(req,res)=>{
-    res.send('login successful')
+app.post('/signup',async (_req,res)=>{
+    const userData=new User({firstName: "shekar", lastName: "Mogaveera", email: "shekar@gmail.com", password: "Shekar@123"})
+    try{
+        await userData.save();
+        res.send('user signedup successfully')
+    }catch(err){
+        res.status(400).send('user signup unsuccessfull')
+    }
 })
 
-app.get('/admin',[(_req,res, next)=>{
-    console.log("middleware 1")
-    next();
-}],(_req,res,next)=>{
-    console.log('middleware 2')
-    next()
-},adminAuth
-,(req,res)=>{
-    res.send('login successfull')
+connectDb().then(()=>{
+    console.log('database connected');
+    app.listen(6767,(_req,_res)=>{
+        console.log('server running ')
+    });
+}).catch(()=>{
+    console.log(`couldn't establish connection with database`);
 })
-
-app.post('/user',(_req,res)=>{
-    res.send("User data received");
-})
-// app.use('/',(_req,res)=>{
-//     res.send('hii from /')
-// })
-
-app.listen(6767,(_req,_res)=>{
-    console.log('server running ')
-});
